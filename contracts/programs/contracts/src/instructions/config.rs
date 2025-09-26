@@ -11,17 +11,28 @@ pub struct InitializeConfig<'info>{
     pub system_program:Program<'info,System>
 }
 
-pub fn initialze_config(
+pub fn _initialze_config(
     ctx:Context<InitializeConfig>,
     admin_wallet:Pubkey,
     oracle_wallet:Pubkey
 )->Result<()>{
     let config=&mut ctx.accounts.system_config;
 
-    require!(config.admin_wallet==Pubkey::default() && config.oracle_wallet==Pubkey::default(),CustomError::AlreadyInitialized);
+    require!(
+        admin_wallet != Pubkey::default() && oracle_wallet != Pubkey::default(),
+        CustomError::InvalidWallet
+    );
+    require!(
+        admin_wallet != oracle_wallet,
+        CustomError::InvalidWallet
+    );
 
-    config.admin_wallet=admin_wallet;
-    config.oracle_wallet=oracle_wallet;
+    require!(!config.is_initialized, CustomError::AlreadyInitialized);
+
+    config.is_initialized = true;
+    config.admin_wallet = admin_wallet;
+    config.oracle_wallet = oracle_wallet;
+    config.bump = ctx.bumps.system_config;
 
     emit!(InitializeConfigEvent{
         config:config.key(),
