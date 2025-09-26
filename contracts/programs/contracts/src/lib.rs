@@ -1,5 +1,10 @@
+#![allow(unexpected_cfgs)]
 use anchor_lang::prelude::*;
-
+mod state;
+mod instructions;
+mod errors;
+mod events;
+use instructions::*;
 declare_id!("EYepFssLBo8cFgnFFChmYiPCxCHTaoPGtcXfx4zDMx16");
 
 #[program]
