@@ -6,6 +6,10 @@ pub const METADATA_CID_LENGTH:usize=128;
 pub const EVENT_LENGTH:usize=10;
 pub const PRODUCT_TYPE_LENGTH:usize=64;
 pub const DETAILS_CID_LENGTH:usize=64;
+pub const LOCATION_SUMMARY_LENGTH:usize=256;
+pub const CERTIFICATION_TYPE_LENGTH:usize=128;
+pub const CERTIFICATION_CID_LENGTH:usize=128;
+pub const IoT_CID_LENGTH:usize=128;
 
 
 #[account]
@@ -43,6 +47,60 @@ pub struct Batch {
     pub metadata_cid: String, 
     #[max_len(EVENT_LENGTH)]   
     pub events: Vec<Event>, 
+
+    pub iot_summary:IoTSummaryStruct,
+    pub iot_hash:[u8;32],
+    #[max_len(IoT_CID_LENGTH)]
+    pub iot_cid:String,
+    pub threshold:thresholdStruct,
+    pub compliance:ComplianceFlagsStruct
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct IoTSummaryStruct{
+    pub timestamp:i64,
+    pub min_temp:f32,
+    pub max_temp:f32,
+    pub avg_temp:f32,
+    pub min_humidity:f32,
+    pub max_humidity:f32,
+    pub avg_humidity:f32,
+    #[max_len(LOCATION_SUMMARY_LENGTH)]
+    pub location_summary:String,
+    pub breach_detected:bool,
+    pub breach_count:u32
+}
+
+// use this one after prototype , for now just keep it
+#[account]
+#[derive(InitSpace)]
+pub struct Certification{
+    #[max_len(BATCH_ID_LENGTH)]
+    pub batch_id:String,
+    #[max_len(CERTIFICATION_TYPE_LENGTH)]
+    pub cert_type:String,
+    pub issuer:Pubkey,
+    pub issue_data:i64,
+    pub cert_hash:[u8;32],
+    #[max_len(CERTIFICATION_CID_LENGTH)]
+    pub cert_cid:String,
+    pub valid:bool,
+    pub bump:u8
+}
+
+#[derive(Clone,AnchorSerialize, AnchorDeserialize, PartialEq, Debug,InitSpace)]
+pub struct thresholdStruct{
+    pub max_temp : f32,
+    pub max_humidity:f32,
+    pub max_breach_duration : u32
+}
+
+#[derive(Clone,AnchorSerialize, AnchorDeserialize, PartialEq, Debug,InitSpace)]
+pub struct ComplianceFlagsStruct{
+    pub cold_chain_compliant:bool,
+    pub fraud_detected:bool,
+    pub certification_issued:bool
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]
