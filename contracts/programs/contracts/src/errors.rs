@@ -48,4 +48,18 @@ pub enum SupplyChainError {
     InvalidRoleTransition,
     #[msg("Too many events in batch")]
     TooManyEvents,
+    #[msg("Oracle is not authorized for this operation")]
+    UnauthorizedOracle,
+    #[msg("Invalid timestamp - must be greater than previous")]
+    InvalidTimestamp,
+    #[msg("Invalid temperature range - min_temp must be <= max_temp")]
+    InvalidTemperatureRange,
+    #[msg("IoT data is too old for compliance check")]
+    StaleIoTData,
+    #[msg("Invalid certification type")]
+    InvalidCertificationType,
+    #[msg("Batch is already recalled")]
+    BatchAlreadyRecalled,
+    #[msg("Reason cannot be empty")]
+    EmptyReason,
 }
