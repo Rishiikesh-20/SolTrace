@@ -7,6 +7,8 @@ mod events;
 use instructions::*;
 use crate::state::Role;
 use crate::state::OriginDetails;
+use crate::state::IoTSummaryStruct;
+
 declare_id!("EYepFssLBo8cFgnFFChmYiPCxCHTaoPGtcXfx4zDMx16");
 
 #[program]
@@ -54,5 +56,31 @@ pub mod contracts {
      )->Result<()>{
           _log_handover(ctx, to_wallet, details_hash, details_cid)
      }
-
+     pub fn flag_batch(
+          ctx: Context<FlagBatch>,
+          reason: String,
+     ) -> Result<()> {
+          _flag_batch(ctx, reason)
+     }
+     pub fn issue_certification(
+          ctx: Context<IssueCertification>,
+          cert_type: String,
+          cert_hash: [u8; 32],
+          cert_cid: String,
+     ) -> Result<()> {
+          _issue_certification(ctx, cert_type, cert_hash, cert_cid)
+     }
+     pub fn check_compliance(ctx: Context<CheckCompliance>) -> Result<()> {
+          _check_compliance(ctx)
+     }
+     pub fn update_iot_summary(
+          ctx: Context<UpdateIotSummary>,
+          summary: IoTSummaryStruct,
+          new_hash: [u8; 32],
+          new_cid: String,
+     ) -> Result<()> {
+          _update_iot_summary(ctx, summary, new_hash, new_cid)
+     }
+     
 }
+
