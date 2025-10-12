@@ -1,0 +1,1417 @@
+{
+  "address": "5fm9Ah8DmB6mMFv6jqgBVEj4MZbNF5qDP62TwekEbdev",
+  "metadata": {
+    "name": "contracts",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "approve_user",
+      "discriminator": [
+        62,
+        2,
+        57,
+        73,
+        112,
+        114,
+        126,
+        68
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user_profile.user_wallet",
+                "account": "UserProfile"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "role",
+          "type": {
+            "defined": {
+              "name": "Role"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "check_compliance",
+      "discriminator": [
+        233,
+        217,
+        116,
+        46,
+        226,
+        224,
+        62,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "batch",
+          "writable": true
+        },
+        {
+          "name": "caller_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "caller"
+              }
+            ]
+          }
+        },
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_batch",
+      "discriminator": [
+        159,
+        198,
+        248,
+        43,
+        248,
+        31,
+        235,
+        86
+      ],
+      "accounts": [
+        {
+          "name": "batch",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  97,
+                  116,
+                  99,
+                  104
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "batch_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "batch_id",
+          "type": "string"
+        },
+        {
+          "name": "origin_details",
+          "type": {
+            "defined": {
+              "name": "OriginDetails"
+            }
+          }
+        },
+        {
+          "name": "metadata_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "metadata_cid",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "flag_batch",
+      "discriminator": [
+        38,
+        50,
+        159,
+        115,
+        68,
+        208,
+        3,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "batch",
+          "writable": true
+        },
+        {
+          "name": "caller_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "caller"
+              }
+            ]
+          }
+        },
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "reason",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "intialize_config",
+      "discriminator": [
+        38,
+        75,
+        134,
+        154,
+        249,
+        64,
+        246,
+        46
+      ],
+      "accounts": [
+        {
+          "name": "system_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "admin_wallet",
+          "type": "pubkey"
+        },
+        {
+          "name": "oracle_wallet",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "issue_certification",
+      "discriminator": [
+        151,
+        73,
+        123,
+        201,
+        36,
+        95,
+        108,
+        250
+      ],
+      "accounts": [
+        {
+          "name": "certification",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  101,
+                  114,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "batch.id",
+                "account": "Batch"
+              },
+              {
+                "kind": "arg",
+                "path": "cert_type"
+              }
+            ]
+          }
+        },
+        {
+          "name": "batch",
+          "writable": true
+        },
+        {
+          "name": "issuer_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "issuer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "issuer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "cert_type",
+          "type": "string"
+        },
+        {
+          "name": "cert_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "cert_cid",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "log_handover",
+      "discriminator": [
+        243,
+        199,
+        182,
+        250,
+        12,
+        168,
+        244,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "batch",
+          "writable": true
+        },
+        {
+          "name": "from_user_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "from_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "to_user_profile",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "to_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "from_user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "to_user",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "to_wallet",
+          "type": "pubkey"
+        },
+        {
+          "name": "details_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "details_cid",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "register_user",
+      "discriminator": [
+        2,
+        241,
+        150,
+        223,
+        99,
+        214,
+        116,
+        97
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "profile_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_iot_summary",
+      "discriminator": [
+        73,
+        239,
+        117,
+        188,
+        144,
+        71,
+        40,
+        16
+      ],
+      "accounts": [
+        {
+          "name": "batch",
+          "writable": true
+        },
+        {
+          "name": "oracle",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "summary",
+          "type": {
+            "defined": {
+              "name": "IoTSummaryStruct"
+            }
+          }
+        },
+        {
+          "name": "new_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "new_cid",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Batch",
+      "discriminator": [
+        156,
+        194,
+        70,
+        44,
+        22,
+        88,
+        137,
+        44
+      ]
+    },
+    {
+      "name": "Certification",
+      "discriminator": [
+        141,
+        130,
+        166,
+        168,
+        167,
+        23,
+        163,
+        147
+      ]
+    },
+    {
+      "name": "SystemConfig",
+      "discriminator": [
+        218,
+        150,
+        16,
+        126,
+        102,
+        185,
+        75,
+        1
+      ]
+    },
+    {
+      "name": "UserProfile",
+      "discriminator": [
+        32,
+        37,
+        119,
+        205,
+        179,
+        180,
+        13,
+        194
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "BatchCreated",
+      "discriminator": [
+        231,
+        92,
+        210,
+        203,
+        2,
+        59,
+        109,
+        234
+      ]
+    },
+    {
+      "name": "HandoverLogged",
+      "discriminator": [
+        134,
+        97,
+        59,
+        232,
+        248,
+        223,
+        3,
+        132
+      ]
+    },
+    {
+      "name": "InitializeConfigEvent",
+      "discriminator": [
+        115,
+        64,
+        125,
+        137,
+        211,
+        17,
+        190,
+        43
+      ]
+    },
+    {
+      "name": "UserEvent",
+      "discriminator": [
+        199,
+        119,
+        30,
+        238,
+        191,
+        71,
+        193,
+        175
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidRole",
+      "msg": "Invalid role for this operation"
+    },
+    {
+      "code": 6001,
+      "name": "UserNotApproved",
+      "msg": "User is not approved"
+    },
+    {
+      "code": 6002,
+      "name": "WalletMismatch",
+      "msg": "Wallet address does not match user profile"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidProductionDate",
+      "msg": "Invalid production date"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidBatchId",
+      "msg": "Invalid batch ID"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidMetadataCid",
+      "msg": "Invalid metadata CID"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidMetadataHash",
+      "msg": "Invalid metadata hash"
+    },
+    {
+      "code": 6007,
+      "name": "NotCurrentOwner",
+      "msg": "User is not the current owner of the batch"
+    },
+    {
+      "code": 6008,
+      "name": "BatchNotCompliant",
+      "msg": "Batch is not compliant for handover"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidDetailsHash",
+      "msg": "Invalid details hash"
+    },
+    {
+      "code": 6010,
+      "name": "InvalidDetailsCid",
+      "msg": "Invalid details CID"
+    },
+    {
+      "code": 6011,
+      "name": "InvalidHandoverRole",
+      "msg": "Invalid role for handover"
+    },
+    {
+      "code": 6012,
+      "name": "InvalidRoleTransition",
+      "msg": "Invalid role transition"
+    },
+    {
+      "code": 6013,
+      "name": "TooManyEvents",
+      "msg": "Too many events in batch"
+    },
+    {
+      "code": 6014,
+      "name": "UnauthorizedOracle",
+      "msg": "Oracle is not authorized for this operation"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidTimestamp",
+      "msg": "Invalid timestamp - must be greater than previous"
+    },
+    {
+      "code": 6016,
+      "name": "InvalidTemperatureRange",
+      "msg": "Invalid temperature range - min_temp must be <= max_temp"
+    },
+    {
+      "code": 6017,
+      "name": "StaleIoTData",
+      "msg": "IoT data is too old for compliance check"
+    },
+    {
+      "code": 6018,
+      "name": "InvalidCertificationType",
+      "msg": "Invalid certification type"
+    },
+    {
+      "code": 6019,
+      "name": "BatchAlreadyRecalled",
+      "msg": "Batch is already recalled"
+    },
+    {
+      "code": 6020,
+      "name": "EmptyReason",
+      "msg": "Reason cannot be empty"
+    }
+  ],
+  "types": [
+    {
+      "name": "Batch",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "producer",
+            "type": "pubkey"
+          },
+          {
+            "name": "current_owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "BatchStatus"
+              }
+            }
+          },
+          {
+            "name": "origin_details",
+            "type": {
+              "defined": {
+                "name": "OriginDetails"
+              }
+            }
+          },
+          {
+            "name": "metadata_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "metadata_cid",
+            "type": "string"
+          },
+          {
+            "name": "events",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "Event"
+                }
+              }
+            }
+          },
+          {
+            "name": "iot_summary",
+            "type": {
+              "defined": {
+                "name": "IoTSummaryStruct"
+              }
+            }
+          },
+          {
+            "name": "iot_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "iot_cid",
+            "type": "string"
+          },
+          {
+            "name": "threshold",
+            "type": {
+              "defined": {
+                "name": "thresholdStruct"
+              }
+            }
+          },
+          {
+            "name": "compliance",
+            "type": {
+              "defined": {
+                "name": "ComplianceFlagsStruct"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "BatchCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "producer",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BatchStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Registered"
+          },
+          {
+            "name": "InProcessing"
+          },
+          {
+            "name": "InTransit"
+          },
+          {
+            "name": "Sold"
+          },
+          {
+            "name": "Flagged"
+          },
+          {
+            "name": "Recalled"
+          },
+          {
+            "name": "Compliant"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Certification",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "cert_type",
+            "type": "string"
+          },
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "issue_data",
+            "type": "i64"
+          },
+          {
+            "name": "cert_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "cert_cid",
+            "type": "string"
+          },
+          {
+            "name": "valid",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ComplianceFlagsStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "cold_chain_compliant",
+            "type": "bool"
+          },
+          {
+            "name": "fraud_detected",
+            "type": "bool"
+          },
+          {
+            "name": "certification_issued",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "event_type",
+            "type": {
+              "defined": {
+                "name": "EventType"
+              }
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "from_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "to_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "details_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "details_cid",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "HandOver"
+          },
+          {
+            "name": "BreachDetected"
+          },
+          {
+            "name": "ProcessingUpdate"
+          },
+          {
+            "name": "StorageUpdate"
+          },
+          {
+            "name": "ComplianceCheck"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HandoverLogged",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "from_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "to_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeConfigEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "config",
+            "type": "pubkey"
+          },
+          {
+            "name": "admin_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_wallet",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "IoTSummaryStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "min_temp",
+            "type": "f32"
+          },
+          {
+            "name": "max_temp",
+            "type": "f32"
+          },
+          {
+            "name": "avg_temp",
+            "type": "f32"
+          },
+          {
+            "name": "min_humidity",
+            "type": "f32"
+          },
+          {
+            "name": "max_humidity",
+            "type": "f32"
+          },
+          {
+            "name": "avg_humidity",
+            "type": "f32"
+          },
+          {
+            "name": "location_summary",
+            "type": "string"
+          },
+          {
+            "name": "breach_detected",
+            "type": "bool"
+          },
+          {
+            "name": "breach_count",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OriginDetails",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "production_date",
+            "type": "i64"
+          },
+          {
+            "name": "quantity",
+            "type": "u64"
+          },
+          {
+            "name": "weight",
+            "type": "f64"
+          },
+          {
+            "name": "product_type",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Role",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Producer"
+          },
+          {
+            "name": "Processor"
+          },
+          {
+            "name": "Distributor"
+          },
+          {
+            "name": "Retailer"
+          },
+          {
+            "name": "Consumer"
+          },
+          {
+            "name": "Regulator"
+          },
+          {
+            "name": "Administrator"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SystemConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "is_initialized",
+            "type": "bool"
+          },
+          {
+            "name": "admin_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "role",
+            "type": {
+              "defined": {
+                "name": "Role"
+              }
+            }
+          },
+          {
+            "name": "profile_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "is_approved",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "role",
+            "type": {
+              "defined": {
+                "name": "Role"
+              }
+            }
+          },
+          {
+            "name": "profile_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "is_approved",
+            "type": "bool"
+          },
+          {
+            "name": "registered_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "thresholdStruct",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "max_temp",
+            "type": "f32"
+          },
+          {
+            "name": "max_humidity",
+            "type": "f32"
+          },
+          {
+            "name": "max_breach_duration",
+            "type": "u32"
+          }
+        ]
+      }
+    }
+  ]
+}

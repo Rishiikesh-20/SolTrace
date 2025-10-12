@@ -1,0 +1,31 @@
+{
+  "name": "supply-chain-backend",
+  "version": "1.0.0",
+  "description": "Supply chain IoT backend with IPFS, MQTT, and Solana integration",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "broker": "node broker.js",
+    "gateway": "node gateway.js",
+    "oracle": "node oracle.js",
+    "dev": "concurrently \"npm run broker\" \"npm run start\" \"npm run gateway\" \"npm run oracle\""
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@solana/web3.js": "^1.95.0",
+    "aedes": "^0.51.3",
+    "bs58": "^6.0.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.0",
+    "ipfs-http-client": "^60.0.1",
+    "merkletreejs": "^0.3.11",
+    "mqtt": "^5.10.1",
+    "net": "^1.0.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

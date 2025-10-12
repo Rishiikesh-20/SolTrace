@@ -1,0 +1,143 @@
+version: "3.9"
+
+services:
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: ipfs
+    ports:
+      - "4001:4001"
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - ipfs-data:/data/ipfs
+    healthcheck:
+      test: ["CMD", "ipfs", "id"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env
+
+  solana:
+    image: tchambard/solana-test-validator:latest
+    container_name: solana
+    user: root
+    command: >
+      sh -c "
+        mkdir -p /ledger &&
+        chmod -R 0777 /ledger &&
+        solana-test-validator
+          --ledger /ledger
+          --reset
+          --rpc-port 8899
+          --bind-address 0.0.0.0
+          --dynamic-port-range 8000-8017
+          --gossip-port 8001
+      "
+    ports:
+      - "8899:8899"
+      - "8900:8900"
+      - "8000-8017:8000-8017/tcp"
+      - "8000-8017:8000-8017/udp"
+    volumes:
+      - solana-ledger:/ledger
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8899/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    env_file:
+      - .env
+
+  broker:
+    build: .
+    container_name: broker
+    command: node broker.js
+    ports:
+      - "1883:1883"
+    depends_on:
+      solana:
+        condition: service_healthy
+    volumes:
+      - .:/app:Z
+    env_file:
+      - .env
+
+  init:
+    build: .
+    container_name: init
+    command: >
+      sh -c "
+        if [ ! -f /app/admin-keypair.json ]; then
+          solana-keygen new --no-bip39-passphrase -o /app/admin-keypair.json || exit 1;
+        else
+          echo 'admin-keypair already exists, skipping creation';
+        fi &&
+        if [ ! -f /app/oracle-keypair.json ]; then
+          solana-keygen new --no-bip39-passphrase -o /app/oracle-keypair.json || exit 1;
+        else
+          echo 'oracle-keypair already exists, skipping creation';
+        fi &&
+        node create_batch_init.js
+      "
+    depends_on:
+      solana:
+        condition: service_healthy
+      ipfs:
+        condition: service_healthy
+    volumes:
+      - .:/app:Z
+      - ./admin-keypair.json:/app/admin-keypair.json:Z
+      - ./oracle-keypair.json:/app/oracle-keypair.json:Z
+    env_file:
+      - .env
+
+  gateway:
+    build: .
+    container_name: gateway
+    command: node gateway.js
+    depends_on:
+      - broker
+      - ipfs
+      - init
+    volumes:
+      - .:/app:Z
+      - ./admin-keypair.json:/app/admin-keypair.json:Z
+      - ./oracle-keypair.json:/app/oracle-keypair.json:Z
+    env_file:
+      - .env
+
+  oracle:
+    build: .
+    container_name: oracle
+    command: node oracle.js
+    depends_on:
+      - broker
+      - ipfs
+      - init
+    volumes:
+      - .:/app:Z
+      - ./admin-keypair.json:/app/admin-keypair.json:Z
+      - ./oracle-keypair.json:/app/oracle-keypair.json:Z
+    env_file:
+      - .env
+
+  api:
+    build: .
+    container_name: api
+    command: node index.js
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ipfs
+      - init
+    volumes:
+      - .:/app:Z
+      - ./admin-keypair.json:/app/admin-keypair.json:Z
+      - ./oracle-keypair.json:/app/oracle-keypair.json:Z
+    env_file:
+      - .env
+
+volumes:
+  ipfs-data:
+  solana-ledger:
