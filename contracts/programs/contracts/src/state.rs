@@ -3,7 +3,7 @@ use anchor_lang::prelude::{borsh::{BorshDeserialize, BorshSerialize}, *};
 
 pub const BATCH_ID_LENGTH:usize=64;
 pub const METADATA_CID_LENGTH:usize=128;
-pub const EVENT_LENGTH:usize=10;
+pub const EVENT_LENGTH:usize=50;
 pub const PRODUCT_TYPE_LENGTH:usize=64;
 pub const DETAILS_CID_LENGTH:usize=64;
 pub const LOCATION_SUMMARY_LENGTH:usize=256;

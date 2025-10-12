@@ -9,7 +9,7 @@ use crate::state::Role;
 use crate::state::OriginDetails;
 use crate::state::IoTSummaryStruct;
 
-declare_id!("EYepFssLBo8cFgnFFChmYiPCxCHTaoPGtcXfx4zDMx16");
+declare_id!("5fm9Ah8DmB6mMFv6jqgBVEj4MZbNF5qDP62TwekEbdev");
 
 #[program]
 pub mod contracts {
